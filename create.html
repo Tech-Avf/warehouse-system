@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Slip - Nhập kho</title>
+
+  <style>
+    body { font-family: Arial; margin: 20px; }
+
+    input { padding: 6px; margin: 4px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    button {
+      padding: 6px 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    body {
+  font-family: Arial;
+  margin: 20px;
+  background: #f6f7fb;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+th {
+  background: #2f3542;
+  color: white;
+  padding: 10px;
+}
+
+td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+input {
+  width: 95%;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  background: #3742fa;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #2f3542;
+}
+  </style>
+</head>
+
+<body>
+
+<h2>CREATE GOODS RECEIPT / TẠO PHIẾU NHẬP KHO</h2>
+
+<!-- ================= INFO ================= -->
+<div>
+  <label>Slip No / Mã phiếu:</label>
+  <input id="slipNo" readonly><br>
+
+  <label>Product Code / Mã sản phẩm:</label>
+  <input id="productCode"><br>
+
+  <label>Machine No / Số máy:</label>
+  <input id="machineNo"><br>
+
+  <label>Creator / Người tạo:</label>
+  <input id="creator"><br>
+
+  <label>Returner / Người trả:</label>
+  <input id="returner"><br>
+
+  <label>Note / Ghi chú:</label>
+  <input id="note"><br>
+</div>
+
+<hr>
+
+<!-- ================= TOOL LIST ================= -->
+<h3>Tool List / Danh sách công cụ</h3>
+
+
+<table id="toolTable">
+  <thead>
+    <tr>
+      <th style="width:60px;">No.</th>
+      <th>Tool Name</th>
+      <th style="width:120px;">Quantity</th>
+      <th style="width:80px;">Action</th>
+    </tr>
+  </thead>
+
+  <tbody></tbody>
+</table>
+
+<button onclick="addRow()">+ Add Tool</button>
+
+  <tbody></tbody>
+<br>
+
+<!-- ================= ACTION ================= -->
+<button onclick="saveDraft()">Save Draft</button>
+
+<script>
+// ================= SLIP NO =================
+function generateSlipNo() {
+  const now = new Date();
+
+  const id =
+    "SLIP-" +
+    now.getFullYear() +
+    (now.getMonth() + 1).toString().padStart(2, '0') +
+    now.getDate().toString().padStart(2, '0') + "-" +
+    Math.floor(Math.random() * 1000);
+
+  document.getElementById("slipNo").value = id;
+}
+
+// ================= ADD TOOL ROW =================
+function addRow() {
+  const table = document.querySelector("#toolTable tbody");
+
+  const row = document.createElement("tr");
+
+  row.innerHTML = `
+    <td class="no"></td>
+    <td><input placeholder="Tool Name"></td>
+    <td><input type="number" value="1" min="1"></td>
+    <td><button onclick="removeRow(this)">X</button></td>
+  `;
+
+  table.appendChild(row);
+
+  updateRowNumber();
+}
+function updateRowNumber() {
+  document.querySelectorAll("#toolTable tbody tr").forEach((tr, index) => {
+    tr.querySelector(".no").innerText = index + 1;
+  });
+}
+// ================= REMOVE ROW =================
+function removeRow(btn) {
+  btn.parentElement.parentElement.remove();
+  updateRowNumber();
+}
+
+// ================= SAVE DRAFT =================
+function saveDraft() {
+
+  const data = {
+    slipNo: document.getElementById("slipNo").value,
+    productCode: document.getElementById("productCode").value,
+    machineNo: document.getElementById("machineNo").value,
+    creator: document.getElementById("creator").value,
+    returner: document.getElementById("returner").value,
+    note: document.getElementById("note").value,
+    tools: []
+  };
+
+  document.querySelectorAll("#toolTable tbody tr").forEach(tr => {
+    const inputs = tr.querySelectorAll("input");
+
+    const toolName = inputs[0].value.trim();
+    const quantity = inputs[1].value;
+
+    if (toolName === "") return;
+
+    data.tools.push({
+      toolName,
+      quantity: quantity || 1
+    });
+  });
+
+  fetch("https://script.google.com/macros/s/AKfycbziRJr00wL7L1ClaJz92zx1dlHOp_0nS_wUic_rhEtrWJnA-If4ivIpXmJo5AgtF7dOIg/exec", {
+  method: "POST",
+  mode: "no-cors",
+  body: JSON.stringify(data)
+})
+  .then(res => res.text())
+  .then(res => {
+    console.log("Saved to Google Sheet:", res);
+    alert("Saved to Google Sheet OK");
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Error saving to Google Sheet");
+  });
+
+  console.log("Saved Draft:", data);
+  alert("Saved Draft (Pending)");
+}
+
+// ================= INIT =================
+window.onload = function () {
+  generateSlipNo();
+
+  // tạo sẵn 10 dòng tool
+  for (let i = 0; i < 10; i++) {
+    addRow();
+  }
+};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+  <title>Warehouse System</title>
+
+  <link rel="stylesheet"
+        href="style.css" />
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="header-box">
+
+  <img
+    src="https://lh3.googleusercontent.com/d/1tVh2e4ZDiraIXAGAT54VkAhYsKi5xgCl"
+    class="company-logo"
+    alt="Company Logo">
+
+  <div>
+
+    <h1>
+      WAREHOUSE MANAGEMENT SYSTEM
+      <br>
+      <span>
+        (Hệ thống quản lý kho)
+      </span>
+    </h1>
+
+  </div>
+
+</div>
+
+    <div class="search-section">
+
+      <label>
+        Product Code
+        <br>
+        <span>(Mã sản phẩm)</span>
+      </label>
+
+      <div class="search-box">
+
+        <input type="text"
+               id="searchCode"
+               placeholder="Product Code hoặc Slip No" />
+
+        <button onclick="searchHistory()">
+          Search
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="menu-section">
+
+      <a href="create.html"
+         class="menu-button">
+
+        Create Warehouse Slip
+        <br>
+        <span>(Tạo phiếu nhập kho)</span>
+
+      </a>
+
+      <a href="approve.html"
+         class="menu-button">
+
+        Approve Warehouse Slip
+        <br>
+        <span>(Duyệt phiếu nhập kho)</span>
+
+      </a>
+
+    </div>
+  <div id="historySection">
+
+  <h2>
+    Warehouse History
+    <br>
+    <span>(Lịch sử nhập kho)</span>
+  </h2>
+
+  <table id="historyTable">
+
+    <thead>
+  <tr>
+    <th>
+      Date
+      <br>
+      <span>(Ngày)</span>
+    </th>
+
+    <th>
+      Slip No
+      <br>
+      <span>(Mã phiếu)</span>
+    </th>
+
+    <th>
+      Product
+      <br>
+      <span>(Mã hàng)</span>
+    </th>
+
+    <th>
+      Machine
+      <br>
+      <span>(Máy)</span>
+    </th>
+
+    <th>
+      Creator
+      <br>
+      <span>(Người tạo)</span>
+    </th>
+
+    <th>
+      Returner
+      <br>
+      <span>(Người trả)</span>
+    </th>
+
+    <th>
+      Action
+      <br>
+      <span>(Hành động)</span>
+    </th>
+  </tr>
+</thead>
+
+    <tbody>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+  </div>
+<script src="script.js"></script>
+</body>
+
+</html>

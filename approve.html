@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Approve Dashboard</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f6f9;
+  margin: 0;
+}
+
+/* HEADER */
+.header {
+  background: #2f3542;
+  color: white;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* CONTAINER */
+.container {
+  padding: 15px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* CARD - HORIZONTAL */
+.card {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 16px;
+  margin-bottom: 10px;
+
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* LEFT INFO BLOCK */
+.info {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+/* FIELD */
+.field {
+  min-width: 140px;
+}
+
+.label {
+  font-size: 12px;
+  color: #555;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* BUTTON */
+.btn {
+  background: #3742fa;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #2f3542;
+}
+
+/* SMALL */
+.small {
+  font-size: 11px;
+  color: #ddd;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="header-title" id="title">
+    APPROVE DASHBOARD <span class="small">(Bảng duyệt phiếu)</span>
+  </div>
+</div>
+
+<div class="container" id="list"></div>
+
+<script>
+
+const API = "https://script.google.com/macros/s/AKfycbziRJr00wL7L1ClaJz92zx1dlHOp_0nS_wUic_rhEtrWJnA-If4ivIpXmJo5AgtF7dOIg/exec";
+
+function loadData() {
+
+  fetch(API + "?action=latest_slips")
+  .then(res => res.json())
+  .then(data => {
+
+    let html = "";
+
+    data.forEach(item => {
+
+      html += `
+        <div class="card">
+
+          <div class="info">
+
+            <div class="field">
+              <div class="label">Slip No (Mã phiếu)</div>
+              <div class="value">${item.slipNo}</div>
+            </div>
+
+            <div class="field">
+              <div class="label">Product Code (Mã SP)</div>
+              <div class="value">${item.productCode}</div>
+            </div>
+
+            <div class="field">
+              <div class="label">Machine (Máy)</div>
+              <div class="value">${item.machineNo}</div>
+            </div>
+
+            <div class="field">
+              <div class="label">Creator (Người tạo)</div>
+              <div class="value">${item.creator}</div>
+            </div>
+
+            <div class="field">
+              <div class="label">Returner (Người trả)</div>
+              <div class="value">${item.returner}</div>
+            </div>
+
+            <div class="field">
+              <div class="label">Date (Ngày)</div>
+              <div class="value">${item.date || ""}</div>
+            </div>
+
+          </div>
+
+          <button class="btn" onclick="viewSlip('${item.slipNo}')">
+            View / Print (Xem / In)
+          </button>
+
+        </div>
+      `;
+
+    });
+
+    document.getElementById("list").innerHTML = html;
+
+  });
+
+}
+
+function viewSlip(slipNo) {
+  window.open("print.html?slipNo=" + slipNo, "_blank");
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>
