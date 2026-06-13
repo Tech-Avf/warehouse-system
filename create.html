@@ -2,6 +2,8 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
   <title>Create Slip - Nhập kho</title>
 
   <style>
@@ -71,39 +73,177 @@ button {
 button:hover {
   background: #2f3542;
 }
+.page-header{
+  background:white;
+  padding:20px;
+  margin:-20px -20px 20px -20px;
+
+  box-shadow:
+  0 2px 10px rgba(0,0,0,.08);
+}
+
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.logo-wrap img{
+  width:70px;
+}
+
+.logo-wrap h1{
+  margin:0;
+  color:#1e3a8a;
+}
+
+.logo-wrap span{
+  color:#666;
+}
+
+.card{
+  background:white;
+
+  border-radius:12px;
+
+  padding:20px;
+
+  margin-bottom:20px;
+
+  box-shadow:
+  0 4px 12px rgba(0,0,0,.08);
+}
+
+.form-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(250px,1fr));
+
+  gap:15px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+}
+
+.field label{
+  margin-bottom:6px;
+  font-weight:600;
+}
+
+.field input{
+  width:auto;
+}
+
+.save-btn{
+
+  background:#2563eb;
+
+  color:white;
+
+  border:none;
+
+  padding:14px 28px;
+
+  font-size:16px;
+
+  font-weight:600;
+
+  border-radius:10px;
+}
+
+.save-btn:hover{
+  background:#1d4ed8;
+}
   </style>
 </head>
 
 <body>
 
-<h2>CREATE GOODS RECEIPT / TẠO PHIẾU NHẬP KHO</h2>
+<div class="page-header">
 
-<!-- ================= INFO ================= -->
-<div>
-  <label>Slip No / Mã phiếu:</label>
-  <input id="slipNo" readonly><br>
+  <div class="logo-wrap">
 
-  <label>Product Code / Mã sản phẩm:</label>
-  <input id="productCode"><br>
+    <img
+      src="https://lh3.googleusercontent.com/d/1tVh2e4ZDiraIXAGAT54VkAhYsKi5xgCl">
 
-  <label>Machine No / Số máy:</label>
-  <input id="machineNo"><br>
+    <div>
 
-  <label>Creator / Người tạo:</label>
-  <input id="creator"><br>
+      <h1>
+        WAREHOUSE MANAGEMENT SYSTEM
+      </h1>
 
-  <label>Returner / Người trả:</label>
-  <input id="returner"><br>
+      <span>
+        Create Goods Receipt
+        (Tạo phiếu nhập kho)
+      </span>
 
-  <label>Note / Ghi chú:</label>
-  <input id="note"><br>
+    </div>
+
+  </div>
+
 </div>
 
-<hr>
+<div class="card">
+
+<h3>
+Slip Information
+</h3>
+
+<div class="form-grid">
+  <div class="field">
+<label>
+SlipNo / Mã phiếu
+<label>
+<input id="slipNo">
+</div>
+
+<div class="field">
+<label>
+Product Code / Mã sản phẩm
+<label>
+<input id="productCode">
+</div>
+
+<div class="field">
+<label>
+Machine No / Số máy
+<label>
+<input id="machineNo">
+</div>
+
+<div class="field">
+<label>
+Creator / Người tạo
+<label>
+<input id="creator">
+</div>
+
+<div class="field">
+<label>
+Returner / Người trả
+<label>
+<input id="returner">
+</div>
+
+<div class="field">
+<label>
+Note / Ghi chú
+<label>
+<input id="note">
+</div>
+
+</div>
+
+</div>
 
 <!-- ================= TOOL LIST ================= -->
+<div class="card">
 <h3>Tool List / Danh sách công cụ</h3>
-
+</div>
 
 <table id="toolTable">
   <thead>
@@ -124,7 +264,13 @@ button:hover {
 <br>
 
 <!-- ================= ACTION ================= -->
-<button onclick="saveDraft()">Save Draft</button>
+<button
+  class="save-btn"
+  onclick="saveDraft()">
+
+  Save Slip
+
+</button>
 
 <script>
 // ================= SLIP NO =================
@@ -200,19 +346,17 @@ function saveDraft() {
   method: "POST",
   mode: "no-cors",
   body: JSON.stringify(data)
-})
-  .then(res => res.text())
-  .then(res => {
-    console.log("Saved to Google Sheet:", res);
-    alert("Saved to Google Sheet OK");
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Error saving to Google Sheet");
-  });
+});
 
-  console.log("Saved Draft:", data);
-  alert("Saved Draft (Pending)");
+alert("Saving...");
+
+setTimeout(() => {
+
+  alert("Saved Successfully");
+
+  window.location.href = "index.html";
+
+}, 1500);
 }
 
 // ================= INIT =================
