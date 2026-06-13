@@ -204,56 +204,7 @@ function loadData() {
   renderPagination();
 
 });
-        <div class="card">
-
-          <div class="info">
-
-            <div class="field">
-              <div class="label">Slip No (Mã phiếu)</div>
-              <div class="value">${item.slipNo}</div>
-            </div>
-
-            <div class="field">
-              <div class="label">Product Code (Mã SP)</div>
-              <div class="value">${item.productCode}</div>
-            </div>
-
-            <div class="field">
-              <div class="label">Machine (Máy)</div>
-              <div class="value">${item.machineNo}</div>
-            </div>
-
-            <div class="field">
-              <div class="label">Creator (Người tạo)</div>
-              <div class="value">${item.creator}</div>
-            </div>
-
-            <div class="field">
-              <div class="label">Returner (Người trả)</div>
-              <div class="value">${item.returner}</div>
-            </div>
-
-            <div class="field">
-              <div class="label">Date (Ngày)</div>
-              <div class="value">${item.date || ""}</div>
-            </div>
-
-          </div>
-
-          <button class="btn" onclick="viewSlip('${item.slipNo}')">
-            View / Print (Xem / In)
-          </button>
-
-        </div>
-      `;
-
-    });
-
-    document.getElementById("list").innerHTML = html;
-
-  });
-
-}
+}      
 function renderPage(page){
 
   currentPage = page;
