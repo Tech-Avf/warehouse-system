@@ -278,10 +278,10 @@ Note / Ghi chú
 
 <!-- ================= TOOL LIST ================= -->
 <div class="card">
-<h3>Tool List / Danh sách công cụ</h3>
-</div>
 
-<table id="toolTable">
+  <h3>Tool List / Danh sách công cụ</h3>
+
+  <table id="toolTable">
   <thead>
     <tr>
       <th style="width:60px;">No.</th>
@@ -294,10 +294,11 @@ Note / Ghi chú
   <tbody></tbody>
 </table>
 
-<button onclick="addRow()">+ Add Tool</button>
+  <button onclick="addRow()">
+    + Add Tool
+  </button>
 
-  <tbody></tbody>
-<br>
+</div>
 
 <!-- ================= ACTION ================= -->
 <button
@@ -384,16 +385,16 @@ function saveDraft() {
   body: JSON.stringify(data)
 });
 
-alert("Saving...");
+const btn = document.querySelector(".save-btn");
+
+btn.disabled = true;
+btn.innerText = "Saved ✓";
 
 setTimeout(() => {
 
-  alert("Saved Successfully");
-
   window.location.href = "index.html";
 
-}, 1500);
-}
+}, 1000);
 
 // ================= INIT =================
 window.onload = function () {
