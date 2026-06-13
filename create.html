@@ -158,6 +158,34 @@ button:hover {
 .save-btn:hover{
   background:#1d4ed8;
 }
+#slipNo{
+  background:#f1f5f9;
+  color:#64748b;
+  cursor:not-allowed;
+}
+textarea{
+
+  width:100%;
+
+  min-height:120px;
+
+  padding:10px;
+
+  border:1px solid #ddd;
+
+  border-radius:8px;
+
+  resize:vertical;
+
+  box-sizing:border-box;
+
+  font-family:inherit;
+
+  font-size:14px;
+}
+.note-field{
+  grid-column:1 / -1;
+}
   </style>
 </head>
 
@@ -197,43 +225,51 @@ Slip Information
   <div class="field">
 <label>
 SlipNo / Mã phiếu
-<label>
-<input id="slipNo">
+</label>
+<input
+  id="slipNo"
+  readonly>  
 </div>
 
 <div class="field">
 <label>
 Product Code / Mã sản phẩm
-<label>
+</label>
 <input id="productCode">
 </div>
 
 <div class="field">
 <label>
 Machine No / Số máy
-<label>
+</label>
 <input id="machineNo">
 </div>
 
 <div class="field">
 <label>
 Creator / Người tạo
-<label>
+</label>
 <input id="creator">
 </div>
 
 <div class="field">
 <label>
 Returner / Người trả
-<label>
+</label>
 <input id="returner">
 </div>
 
-<div class="field">
+<div class="field note-field">
+
 <label>
 Note / Ghi chú
-<label>
-<input id="note">
+</label>
+
+<textarea
+  id="note"
+  placeholder="Nhập ghi chú...">
+</textarea>
+
 </div>
 
 </div>
