@@ -304,8 +304,7 @@ fetch(API + "?action=slip_detail&slipNo=" + slipNo)
     document.getElementById("returner").innerText = slip.returner;
     document.getElementById("note").innerText = slip.note;
     
-    const date = new Date(slip.date);
-    document.getElementById("date").innerText = date.toLocaleDateString("vi-VN");
+    document.getElementById("date").innerText = slip.date;
     
     return fetch(API + "?slipNo=" + slip.slipNo);
   })
