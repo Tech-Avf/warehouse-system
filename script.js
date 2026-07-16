@@ -14,18 +14,20 @@ function searchHistory() {
   }
 
   fetch(API + "?productCode=" + encodeURIComponent(code))
-    .then(res => res.json())
-    .then(data => {
+  .then(res => res.json())
+  .then(data => {
 
-      renderHistory(data);
+    console.log(data);
 
-    })
-    .catch(err => {
+    renderHistory(data);
 
-      console.error(err);
-      alert("Error loading history");
+  })
+  .catch(err => {
 
-    });
+    console.error(err);
+    alert("Error loading history");
+
+  });
 
 }
 function renderHistory(data) {
