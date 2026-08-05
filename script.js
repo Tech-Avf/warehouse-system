@@ -63,6 +63,30 @@ function searchMachineHistory() {
 function renderHistory(data) {
 
   let html = "";
+  if (data.length === 0) {
+
+  html = `
+    <tr>
+      <td colspan="7"
+          style="
+            padding:30px;
+            color:#777;
+            font-size:18px;
+            font-style:italic;
+          ">
+        No matching records found.
+        <br>
+        <span style="font-size:15px;">
+        (Không tìm thấy dữ liệu)
+        </span>
+      </td>
+    </tr>
+  `;
+
+  document.querySelector("#historyTable tbody").innerHTML = html;
+  return;
+
+}
 
   data.forEach(item => {
 
