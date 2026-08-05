@@ -65,6 +65,23 @@ label span {
   margin-bottom: 50px;
 
 }
+.search-wrapper {
+
+  display: flex;
+
+  gap: 30px;
+
+  margin-bottom: 50px;
+
+}
+
+.search-wrapper .search-section {
+
+  flex: 1;
+
+  margin-bottom: 0;
+
+}
 
 .search-box {
 
