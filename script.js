@@ -140,3 +140,16 @@ document.getElementById("searchMachine").addEventListener("keydown", function (e
   }
 
 });
+// Khi nhập Product thì xóa Machine
+document.getElementById("searchCode").addEventListener("input", function () {
+
+  document.getElementById("searchMachine").value = "";
+
+});
+
+// Khi nhập Machine thì xóa Product
+document.getElementById("searchMachine").addEventListener("input", function () {
+
+  document.getElementById("searchCode").value = "";
+
+});
