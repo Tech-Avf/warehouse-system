@@ -30,6 +30,36 @@ function searchHistory() {
   });
 
 }
+function searchMachineHistory() {
+
+  const machine =
+    document.getElementById("searchMachine")
+    .value
+    .trim()
+    .toLowerCase();
+
+  if (!machine) {
+    alert("Please enter Machine No");
+    return;
+  }
+
+  fetch(API + "?machineNo=" + encodeURIComponent(machine))
+  .then(res => res.json())
+  .then(data => {
+
+    console.log(data);
+
+    renderHistory(data);
+
+  })
+  .catch(err => {
+
+    console.error(err);
+    alert("Error loading history");
+
+  });
+
+}
 function renderHistory(data) {
 
   let html = "";
