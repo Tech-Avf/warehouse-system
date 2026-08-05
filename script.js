@@ -74,16 +74,12 @@ function renderHistory(data) {
 
   let html = "";
   document.getElementById("resultCount").innerHTML =
-    `Found ${allHistory.length} record(s)
-    <br>
-    <span style="font-size:14px;color:#666;">
-      (Tìm thấy ${allHistory.length} phiếu)
-    </span>`;
+  `Found ${allHistory.length} record(s)
   <br>
   <span style="font-size:14px;color:#666;">
-    (Tìm thấy ${data.length} phiếu)
+  (Tìm thấy ${allHistory.length} phiếu)
   </span>`;
-  if (allHistory.length === 0)
+  if (allHistory.length === 0) {
 
   html = `
     <tr>
@@ -97,7 +93,7 @@ function renderHistory(data) {
         No matching records found.
         <br>
         <span style="font-size:15px;">
-        (Không tìm thấy dữ liệu)
+          (Không tìm thấy dữ liệu)
         </span>
       </td>
     </tr>
