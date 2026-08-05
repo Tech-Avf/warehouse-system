@@ -63,6 +63,12 @@ function searchMachineHistory() {
 function renderHistory(data) {
 
   let html = "";
+  document.getElementById("resultCount").innerHTML =
+  `Found ${data.length} record(s)
+  <br>
+  <span style="font-size:14px;color:#666;">
+    (Tìm thấy ${data.length} phiếu)
+  </span>`;
   if (data.length === 0) {
 
   html = `
