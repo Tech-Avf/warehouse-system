@@ -140,6 +140,44 @@ function renderHistory(data) {
 });
 
   document.querySelector("#historyTable tbody").innerHTML = html;
+  renderPagination();
+}
+function changePage(step){
+
+  currentPage += step;
+
+  renderHistory();
+
+}
+function renderPagination() {
+
+  const totalPages = Math.ceil(allHistory.length / rowsPerPage);
+
+  if (totalPages <= 1) {
+
+    document.getElementById("pagination").innerHTML = "";
+    return;
+
+  }
+
+  document.getElementById("pagination").innerHTML = `
+    <button
+      onclick="changePage(-1)"
+      ${currentPage === 1 ? "disabled" : ""}>
+      ◀ Previous
+    </button>
+
+    <span>
+      Page ${currentPage} / ${totalPages}
+    </span>
+
+    <button
+      onclick="changePage(1)"
+      ${currentPage === totalPages ? "disabled" : ""}>
+      Next ▶
+    </button>
+  `;
+
 }
 function viewSlip(slipNo) {
   window.open("print.html?slipNo=" + slipNo, "_blank");
