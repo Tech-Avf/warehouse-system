@@ -1,4 +1,8 @@
 const API = "https://script.google.com/macros/s/AKfycbziRJr00wL7L1ClaJz92zx1dlHOp_0nS_wUic_rhEtrWJnA-If4ivIpXmJo5AgtF7dOIg/exec";
+// ===== Pagination =====
+let allHistory = [];
+let currentPage = 1;
+const rowsPerPage = 10;
 
 function searchHistory() {
 
@@ -19,9 +23,12 @@ function searchHistory() {
 
     console.log(data);
 
-    renderHistory(data);
+    allHistory = data;
+    currentPage = 1;
 
-  })
+    renderHistory();
+
+})
   .catch(err => {
 
     console.error(err);
@@ -49,7 +56,10 @@ function searchMachineHistory() {
 
     console.log(data);
 
-    renderHistory(data);
+    allHistory = data;
+    currentPage = 1;
+
+    renderHistory();
 
   })
   .catch(err => {
@@ -64,12 +74,16 @@ function renderHistory(data) {
 
   let html = "";
   document.getElementById("resultCount").innerHTML =
-  `Found ${data.length} record(s)
+    `Found ${allHistory.length} record(s)
+    <br>
+    <span style="font-size:14px;color:#666;">
+      (Tìm thấy ${allHistory.length} phiếu)
+    </span>`;
   <br>
   <span style="font-size:14px;color:#666;">
     (Tìm thấy ${data.length} phiếu)
   </span>`;
-  if (data.length === 0) {
+  if (allHistory.length === 0)
 
   html = `
     <tr>
@@ -94,7 +108,12 @@ function renderHistory(data) {
 
 }
 
-  data.forEach(item => {
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+
+  const pageData = allHistory.slice(start, end);
+
+  pageData.forEach(item => {
 
   const date = item.date;
 
