@@ -109,19 +109,19 @@ label span {
 
 .search-box button {
 
-  width: 180px;
+    width: 100px;
 
-  border: none;
+    border: none;
 
-  background: #2d5be3;
+    background: #2d5be3;
 
-  color: white;
+    color: white;
 
-  font-size: 20px;
+    font-size: 18px;
 
-  border-radius: 8px;
+    border-radius: 8px;
 
-  cursor: pointer;
+    cursor: pointer;
 
 }
 
