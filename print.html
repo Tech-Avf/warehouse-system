@@ -281,65 +281,79 @@ tbody tr:nth-child(even) {
     </div>
   </div>
 
-</div> <script>
+</div> 
+<script>
 const API = "https://script.google.com/macros/s/AKfycbziRJr00wL7L1ClaJz92zx1dlHOp_0nS_wUic_rhEtrWJnA-If4ivIpXmJo5AgtF7dOIg/exec";
+
 const params = new URLSearchParams(window.location.search);
 const slipNo = params.get("slipNo");
 
 if (!slipNo) {
   alert("Missing slipNo");
+  throw new Error("Missing slipNo");
 }
 
-fetch(API + "?action=slip_detail&slipNo=" + encodeURIComponent(slipNo))
-  .then(async res => {
+const url =
+  API +
+  "?action=print&slipNo=" +
+  encodeURIComponent(slipNo) +
+  "&_=" +
+  Date.now();
 
-    console.log("===== SLIP API =====");
-    console.log("Status:", res.status);
-    console.log("Content-Type:", res.headers.get("content-type"));
+fetch(url, {
+  cache: "no-store"
+})
+.then(async res => {
 
-    const text = await res.text();
+  console.log("Status:", res.status);
 
-    console.log("Response:");
-    console.log(text);
+  const text = await res.text();
 
-    return JSON.parse(text);
+  console.log(text);
 
-  })
-  .then(slip => {
-    if (!slip) {
-      alert("Không tìm thấy phiếu");
-      return;
-    }
-    document.getElementById("slipNo").innerText = slip.slipNo;
-    document.getElementById("productCode").innerText = slip.productCode;
-    document.getElementById("machineNo").innerText = slip.machineNo;
-    document.getElementById("creator").innerText = slip.creator;
-    document.getElementById("returner").innerText = slip.returner;
-    document.getElementById("note").innerText = slip.note;
-    
-    document.getElementById("date").innerText = slip.date;
-    
-    return fetch(API + "?slipNo=" + slip.slipNo);
-  })
-  .then(res => res.json())
-  .then(tools => {
-    console.log("TOOLS:", tools);
-    let html = "";
-    tools.forEach((t, i) => {
-      html += `
-        <tr>
-          <td style="text-align: center;">${i + 1}</td>
-          <td>${t.tool}</td>
-          <td style="text-align: center; font-weight: bold;">${t.qty}</td>
-        </tr>
-      `;
-    });
-    document.getElementById("toolBody").innerHTML = html;
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Error loading data");
+  return JSON.parse(text);
+
+})
+.then(data => {
+
+  if (!data || !data.slip) {
+    alert("Không tìm thấy phiếu");
+    return;
+  }
+
+  const slip = data.slip;
+
+  document.getElementById("slipNo").innerText = slip.slipNo;
+  document.getElementById("productCode").innerText = slip.productCode;
+  document.getElementById("machineNo").innerText = slip.machineNo;
+  document.getElementById("creator").innerText = slip.creator;
+  document.getElementById("returner").innerText = slip.returner;
+  document.getElementById("note").innerText = slip.note;
+  document.getElementById("date").innerText = slip.date;
+
+  let html = "";
+
+  data.tools.forEach((t, i) => {
+
+    html += `
+      <tr>
+        <td style="text-align:center;">${i + 1}</td>
+        <td>${t.tool}</td>
+        <td style="text-align:center;font-weight:bold;">${t.qty}</td>
+      </tr>
+    `;
+
   });
+
+  document.getElementById("toolBody").innerHTML = html;
+
+})
+.catch(err => {
+
+  console.error(err);
+  alert("Error loading data");
+
+});
 </script>
 
 </body>
