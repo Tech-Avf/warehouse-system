@@ -100,6 +100,7 @@ function renderHistory(data) {
   `;
 
   document.querySelector("#historyTable tbody").innerHTML = html;
+  document.getElementById("pagination").innerHTML = "";
   return;
 
 }
@@ -142,9 +143,19 @@ function renderHistory(data) {
   document.querySelector("#historyTable tbody").innerHTML = html;
   renderPagination();
 }
-function changePage(step){
+function changePage(step) {
+
+  const totalPages = Math.ceil(allHistory.length / rowsPerPage);
 
   currentPage += step;
+
+  if (currentPage < 1) {
+    currentPage = 1;
+  }
+
+  if (currentPage > totalPages) {
+    currentPage = totalPages;
+  }
 
   renderHistory();
 
