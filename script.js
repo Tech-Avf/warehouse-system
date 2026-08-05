@@ -99,3 +99,20 @@ function renderHistory(data) {
 function viewSlip(slipNo) {
   window.open("print.html?slipNo=" + slipNo, "_blank");
 }
+// Enter để tìm theo Product
+document.getElementById("searchCode").addEventListener("keydown", function (e) {
+
+  if (e.key === "Enter") {
+    searchHistory();
+  }
+
+});
+
+// Enter để tìm theo Machine
+document.getElementById("searchMachine").addEventListener("keydown", function (e) {
+
+  if (e.key === "Enter") {
+    searchMachineHistory();
+  }
+
+});
